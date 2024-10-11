@@ -5,12 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirection...</title>
     <script>
-        
-        const currentUrl = new URL(window.location.href);
-        const params = currentUrl.search; 
+        function isWebView() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            // Deteksi webview berdasarkan string umum dalam userAgent
+            return (/FBAN|FBAV|Instagram|Line|Twitter|Messenger|WebView|wv/i).test(userAgent);
+        }
 
-        
-        window.location.href = "https://a.labadena.com/api/direct/482713" + params;
+        const currentUrl = new URL(window.location.href);
+        const params = currentUrl.search;
+
+        if (!isWebView()) {
+            
+            window.location.href = "https://a.labadena.com/api/direct/482713" + params;
+        } else {
+            
+            document.body.innerHTML = '<p>Access from webview is blocked. Please open this page in a regular browser.</p>';
+        }
     </script>
 </head>
 <body>
